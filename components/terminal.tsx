@@ -2,7 +2,11 @@
 
 import { useState, useEffect} from "react";
 
-export function Terminal() {
+export function Terminal({
+  onCommand,
+}: {
+  onCommand: (cmd: string) => void;
+}) {
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([]);
 
@@ -20,6 +24,8 @@ export function Terminal() {
         setHistory(prev => [...prev, "Available commands: projects, skills, contact"]);
       } else if (input.toLowerCase() === "projects") {
         setHistory(prev => [...prev, "Opening projects window..."]);
+        onCommand("projects");
+    
       } else {
         setHistory(prev => [...prev, `Command not recognized: ${input}`]);
       }

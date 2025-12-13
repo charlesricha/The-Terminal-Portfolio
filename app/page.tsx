@@ -1,23 +1,34 @@
-import {Terminal} from "../components/terminal";
-import {Clock} from "../components/terminal";
-/* import {Dock} from "../components/terminal";
-import {DesktopIcons} from "../components/terminal"; */
+"use client";
+
+import { Terminal, Clock } from "@/components/terminal";
+import AboutWindow from "@/components/aboutwindow";
+import ProjectsWindow from "@/components/projectwindow";
+import { useState } from "react";
 
 export default function Page() {
+  const [openWindows, setOpenWindows] = useState<string[]>([]);
+
+  const handleCommand = (cmd: string) => {
+    if (!openWindows.includes(cmd)) {
+      setOpenWindows((prev) => [...prev, cmd]);
+      console.log(cmd);
+    }
+  };
+  
   return (
     <div className="relative w-screen h-screen bg-zinc-950 overflow-hidden">
-      {/* Clock in the corner */}
-      <Clock>
-      </Clock>
+      <Clock />
+      <Terminal onCommand={handleCommand}/>
 
-     
-     {/*  <DesktopIcons />
+      {openWindows.includes("projects") && (<ProjectsWindow onClose={() =>
+      setOpenWindows((prev) => prev.filter((w) => w !== "projects"))}/>)}
 
-     
-      <Dock /> */}
+      {openWindows.includes("projects") && (<AboutWindow onClose={() =>
+      setOpenWindows((prev) => prev.filter((w) => w !== "projects"))}/>)}
 
-      {/* Terminal window */}
-      <Terminal />
+      {openWindows.includes("projects") && (<ProjectsWindow onClose={() =>
+      setOpenWindows((prev) => prev.filter((w) => w !== "projects"))}/>)}
     </div>
   );
 }
+
