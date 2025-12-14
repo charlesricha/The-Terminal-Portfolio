@@ -1,14 +1,23 @@
 "use client";
 
 import { useState, useRef } from "react";
+import {FileStack, SquareX} from "lucide-react";
+import { Outfit } from "next/font/google";
 
 type WindowProps = {
   title: string;
   children: React.ReactNode;
   onClose: () => void;
+  sidebar?: React.ReactNode;
 };
+const outfit = Outfit({ 
+  subsets: ["latin"], 
+  /* variable: "--font-outfit", */
+});
 
-export default function Window({ title, children, onClose }: WindowProps) {
+
+export default function Window({ title, children, onClose , sidebar}: WindowProps) {
+   
   const windowRef = useRef<HTMLDivElement>(null);
 
   // Window position
@@ -48,10 +57,10 @@ export default function Window({ title, children, onClose }: WindowProps) {
   return (
     <div
       ref={windowRef}
-      className={`absolute bg-gray-900 text-white shadow-lg border border-gray-700 rounded-lg flex flex-col`}
+      className={`absolute bg-zinc-950/90 backdrop-blur-md text-white shadow-lg rounded-lg flex flex-col border-2 border-amber-50 p-4 ${outfit.className} shadow-[0_0_15px_rgba(34,211,238,0.6)]`}
       style={{
-        width: maximized ? "100%" : "24rem",
-        height: maximized ? "100%" : "15rem",
+        width: maximized ? "100%" : "50rem",
+        height: maximized ? "100%" : "35rem",
         top: maximized ? 0 : pos.y,
         left: maximized ? 0 : pos.x,
         zIndex: 50,
@@ -61,32 +70,29 @@ export default function Window({ title, children, onClose }: WindowProps) {
     >
       {/* Title Bar */}
       <div
-        className="flex justify-between items-center bg-gray-800 px-3 py-2 rounded-t-lg cursor-move select-none"
+        className="flex justify-between items-center bg-zinc-900 px-3 py-2 rounded-lg cursor-move select-none"
         onMouseDown={handleMouseDown}
       >
         <span className="font-semibold">{title}</span>
         <div className="flex space-x-2">
           <button
             onClick={toggleMaximize}
-            className="w-4 h-4 bg-gray-500 hover:bg-gray-400 rounded"
-          ></button>
+            className="p-2 bg-gray-600 hover:bg-gray-400 rounded"
+          ><FileStack /></button>
           <button
             onClick={onClose}
-            className="w-4 h-4 bg-red-500 hover:bg-red-400 rounded"
-          ></button>
+            className="p-2 bg-red-500 hover:bg-red-400 rounded"
+          ><SquareX /></button>
         </div>
       </div>
 
       {/* Content */}
       <div className="flex h-full overflow-auto">
         {/* Sidebar */}
-        <div className="w-1/4 bg-gray-800 p-2 border-r border-gray-700">
-          <ul className="space-y-1 text-sm">
-            <li>Directory 1</li>
-            <li>Directory 2</li>
-            <li>Directory 3</li>
-          </ul>
-        </div>
+        {sidebar && (
+        <div className="w-1/4 bg-zinc-900 p-2 border-r border-gray-700 my-2 rounded-xl py-4">
+            {sidebar}
+        </div>)}
 
         {/* Main content */}
         <div className="flex-1 p-3">{children}</div>

@@ -21,7 +21,7 @@ export function Terminal({
 
       //testing Responces
       if (input.toLowerCase() === "help") {
-        setHistory(prev => [...prev, "Available commands: projects, skills, contact"]);
+        setHistory(prev => [...prev, "Available commands:","    > projects", "  > about", " > contact"]);
       } else if (input.toLowerCase() === "projects") {
         setHistory(prev => [...prev, "Opening projects window..."]);
         onCommand("projects");

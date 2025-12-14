@@ -23,10 +23,10 @@ export default function Page() {
       {openWindows.includes("projects") && (<ProjectsWindow onClose={() =>
       setOpenWindows((prev) => prev.filter((w) => w !== "projects"))}/>)}
 
-      {openWindows.includes("projects") && (<AboutWindow onClose={() =>
+      {openWindows.includes("about") && (<AboutWindow onClose={() =>
       setOpenWindows((prev) => prev.filter((w) => w !== "projects"))}/>)}
 
-      {openWindows.includes("projects") && (<ProjectsWindow onClose={() =>
+      {openWindows.includes("contact") && (<ProjectsWindow onClose={() =>
       setOpenWindows((prev) => prev.filter((w) => w !== "projects"))}/>)}
     </div>
   );
