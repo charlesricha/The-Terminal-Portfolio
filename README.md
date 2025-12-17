@@ -1,6 +1,6 @@
 This is my portfolio featuring the famous comandline client theme with a creative twist
 
-<img src="./terminal.PNG"/>
+![Terminal Screenshot](./public/terminal.PNG)
 
 ## Getting Started
 
